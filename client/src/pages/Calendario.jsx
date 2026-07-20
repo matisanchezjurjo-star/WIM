@@ -44,9 +44,14 @@ function ItemRow({ item, onChanged }) {
   return (
     <div className="card flex flex-col gap-2">
       <div className="flex justify-between items-start gap-2 flex-wrap">
-        <div>
-          <p className="font-bold text-gray-800">{item.title || item.content_type}</p>
-          {item.product_name && <p className="text-xs text-gray-500">{item.product_name}</p>}
+        <div className="flex items-center gap-3">
+          {item.image_url && (
+            <img src={item.image_url} alt="" className="w-12 h-12 rounded-lg object-cover border shrink-0" />
+          )}
+          <div>
+            <p className="font-bold text-gray-800">{item.title || item.content_type}</p>
+            {item.product_name && <p className="text-xs text-gray-500">{item.product_name}</p>}
+          </div>
         </div>
         <span className={`text-xs text-white font-semibold px-2 py-1 rounded-full ${STATUS_COLOR[item.status]}`}>
           {STATUS_LABEL[item.status]}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../lib/api.js';
 import CopyButton from '../components/CopyButton.jsx';
 import ErrorNotice from '../components/ErrorNotice.jsx';
+import ImagePreview from '../components/ImagePreview.jsx';
 
 const FORMAT_LABEL = { Feed: '📷 Feed', Historia: '⏱ Historia', Reel: '🎬 Reel', Anuncio: '📢 Anuncio' };
 const TYPE_LABEL = {
@@ -26,6 +27,8 @@ function IdeaCard({ idea, onSave, saved }) {
 
       <h3 className="text-lg font-bold text-gray-800">{idea.title}</h3>
       {idea.product_name && <p className="text-sm text-gray-500">Producto: {idea.product_name}</p>}
+
+      <ImagePreview url={idea.image_url} filename={`wim-${idea.content_type}.png`} />
 
       <p className="whitespace-pre-wrap text-gray-700">{idea.caption}</p>
       <p className="text-sm text-blue-700 break-words">{idea.hashtags}</p>

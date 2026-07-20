@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../lib/api.js';
 import CopyButton from '../components/CopyButton.jsx';
 import ErrorNotice from '../components/ErrorNotice.jsx';
+import ImagePreview from '../components/ImagePreview.jsx';
 
 const CONTENT_TYPES = [
   { value: 'producto', label: 'Foto de producto' },
@@ -58,6 +59,7 @@ export default function Crear() {
         caption: result.captions[activeTone],
         hashtags: result.hashtags,
         visual_brief: result.visual_brief,
+        image_url: result.generated_image_url,
       });
       setSaved(true);
     } catch (err) {
@@ -141,6 +143,8 @@ export default function Crear() {
               </button>
             ))}
           </div>
+
+          <ImagePreview url={result.generated_image_url} filename={`wim-${contentType}.png`} />
 
           <p className="whitespace-pre-wrap text-gray-700 text-lg">{result.captions[activeTone]}</p>
           <CopyButton text={result.captions[activeTone]} label="Copiar este texto" />

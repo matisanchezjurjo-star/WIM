@@ -37,6 +37,11 @@ export default function Configuracion() {
 
       <form onSubmit={handleSave} className="card flex flex-col gap-4">
         <div>
+          <label className="label">Tu nombre (para el saludo de bienvenida)</label>
+          <input className="input" value={form.owner_name} onChange={(e) => update('owner_name', e.target.value)} />
+        </div>
+
+        <div>
           <label className="label">Nombre del negocio</label>
           <input className="input" value={form.business_name} onChange={(e) => update('business_name', e.target.value)} />
         </div>

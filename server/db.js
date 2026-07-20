@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS content_items (
   status TEXT NOT NULL DEFAULT 'idea',
   scheduled_date TEXT,
   source TEXT NOT NULL DEFAULT 'daily_idea',
+  image_url TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -50,7 +51,8 @@ CREATE TABLE IF NOT EXISTS settings (
   business_name TEXT NOT NULL DEFAULT 'WIM',
   tone TEXT NOT NULL DEFAULT 'profesional',
   audience_notes TEXT NOT NULL DEFAULT '',
-  language TEXT NOT NULL DEFAULT 'es-AR'
+  language TEXT NOT NULL DEFAULT 'es-AR',
+  owner_name TEXT NOT NULL DEFAULT 'Sergio'
 );
 
 CREATE TABLE IF NOT EXISTS competitor_notes (
@@ -61,9 +63,23 @@ CREATE TABLE IF NOT EXISTS competitor_notes (
 );
 `);
 
+// Migraciones para bases de datos creadas con una versión anterior de la app
+// (agregan las columnas nuevas si todavía no existen; si ya existen, el
+// ALTER TABLE falla y simplemente lo ignoramos).
+for (const migration of [
+  "ALTER TABLE content_items ADD COLUMN image_url TEXT",
+  "ALTER TABLE settings ADD COLUMN owner_name TEXT NOT NULL DEFAULT 'Sergio'",
+]) {
+  try {
+    db.exec(migration);
+  } catch {
+    // La columna ya existe: no hay nada para migrar.
+  }
+}
+
 // Fila única de configuración
-db.exec(`INSERT OR IGNORE INTO settings (id, business_name, tone, audience_notes, language)
-  VALUES (1, 'WIM', 'profesional', 'Electricistas, instaladores, ferreterías, decoradores y clientes finales que compran portalámparas y receptáculos en Argentina.', 'es-AR');`);
+db.exec(`INSERT OR IGNORE INTO settings (id, business_name, tone, audience_notes, language, owner_name)
+  VALUES (1, 'WIM', 'profesional', 'Electricistas, instaladores, ferreterías, decoradores y clientes finales que compran portalámparas y receptáculos en Argentina.', 'es-AR', 'Sergio');`);
 
 // Productos de ejemplo, para que la biblioteca no arranque vacía
 const seedCount = db.prepare('SELECT COUNT(*) as c FROM products').get().c;

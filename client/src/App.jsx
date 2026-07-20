@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav.jsx';
+import Bienvenida from './pages/Bienvenida.jsx';
 import Inicio from './pages/Inicio.jsx';
 import Productos from './pages/Productos.jsx';
 import Crear from './pages/Crear.jsx';
@@ -14,7 +15,8 @@ export default function App() {
       <Nav />
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
         <Routes>
-          <Route path="/" element={<Inicio />} />
+          <Route path="/" element={<Bienvenida />} />
+          <Route path="/ideas" element={<Inicio />} />
           <Route path="/productos" element={<Productos />} />
           <Route path="/crear" element={<Crear />} />
           <Route path="/calendario" element={<Calendario />} />

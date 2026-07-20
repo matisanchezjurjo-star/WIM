@@ -31,12 +31,17 @@ export async function askClaudeForJSON({ system, prompt, maxTokens = 2000 }) {
     throw err;
   }
 
-  const response = await anthropic.messages.create({
-    model: MODEL,
-    max_tokens: maxTokens,
-    system,
-    messages: [{ role: 'user', content: prompt }],
-  });
+  let response;
+  try {
+    response = await anthropic.messages.create({
+      model: MODEL,
+      max_tokens: maxTokens,
+      system,
+      messages: [{ role: 'user', content: prompt }],
+    });
+  } catch (err) {
+    throw describeAnthropicError(err);
+  }
 
   const text = response.content
     .filter((block) => block.type === 'text')
@@ -44,6 +49,45 @@ export async function askClaudeForJSON({ system, prompt, maxTokens = 2000 }) {
     .join('\n');
 
   return extractJSON(text);
+}
+
+// Convierte los errores del SDK de Anthropic (que suelen ser técnicos y en
+// inglés) en un mensaje claro en español, para que quien use la app entienda
+// qué pasó sin tener que leer el log del servidor.
+function describeAnthropicError(err) {
+  const status = err?.status;
+  const errType = err?.error?.error?.type || err?.error?.type;
+  const raw = err?.error?.error?.message || err?.message || String(err);
+
+  let message;
+  let code = 'AI_ERROR';
+
+  if (status === 401 || errType === 'authentication_error') {
+    message = 'La clave de Anthropic (ANTHROPIC_API_KEY) no es válida. Revisá que la hayas copiado completa y sin espacios en el archivo .env.';
+    code = 'INVALID_API_KEY';
+  } else if (status === 404 || errType === 'not_found_error') {
+    message = `El modelo de IA configurado no existe o no está disponible para tu cuenta ("${MODEL}"). Probá borrar la línea ANTHROPIC_MODEL del archivo .env para usar el valor por defecto.`;
+    code = 'MODEL_NOT_FOUND';
+  } else if (status === 429 || errType === 'rate_limit_error') {
+    message = 'Se hicieron demasiadas consultas seguidas a la IA. Esperá un minuto y probá de nuevo.';
+    code = 'RATE_LIMIT';
+  } else if (status === 400 && errType === 'invalid_request_error' && /credit|billing/i.test(raw)) {
+    message = 'Tu cuenta de Anthropic no tiene crédito cargado. Entrá a console.anthropic.com y cargá un método de pago.';
+    code = 'NO_CREDIT';
+  } else if (status === 529 || errType === 'overloaded_error') {
+    message = 'Los servidores de Anthropic están saturados en este momento. Probá de nuevo en un rato.';
+    code = 'OVERLOADED';
+  } else if (!status && /fetch|network|ENOTFOUND|ECONNREFUSED/i.test(raw)) {
+    message = 'No se pudo conectar a internet para hablar con la IA. Revisá tu conexión y probá de nuevo.';
+    code = 'NETWORK';
+  } else {
+    message = `Ocurrió un error hablando con la IA: ${raw}`;
+  }
+
+  const wrapped = new Error(message);
+  wrapped.code = code;
+  wrapped.cause = err;
+  return wrapped;
 }
 
 function extractJSON(text) {
