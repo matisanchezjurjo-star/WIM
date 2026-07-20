@@ -1,0 +1,21 @@
+{
+  "name": "wim-marketing-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WIM Marketing Studio - asistente de marketing para WIM",
+  "type": "module",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "build": "npm run build -w client",
+    "start": "npm run build && node server/index.js",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "npm run dev -w client",
+    "dev": "concurrently -k -n SERVER,CLIENT -c blue,green \"npm:dev:server\" \"npm:dev:client\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
