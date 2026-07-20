@@ -14,6 +14,29 @@ paso.
 
 ---
 
+## Forma más fácil de arrancar (recomendada)
+
+Si te complica escribir comandos en la Terminal, no hace falta: en la carpeta
+principal del proyecto hay un archivo que hace todo solo.
+
+- **Mac**: hacé doble clic en **`Iniciar-WIM.command`**. La primera vez, si
+  Mac muestra un aviso de seguridad ("no se puede abrir porque es de un
+  desarrollador no identificado"), hacé clic derecho sobre el archivo →
+  **Abrir**, y confirmá.
+- **Windows**: hacé doble clic en **`Iniciar-WIM.bat`**.
+
+Se va a abrir una ventana de Terminal que instala todo lo necesario (solo la
+primera vez, tarda un par de minutos), te va a pedir que pegues tu clave de
+Anthropic la primera vez, y después abre la app solo en el navegador. Las
+próximas veces, doble clic de nuevo y ya arranca directo.
+
+Dejá esa ventana de Terminal abierta mientras usás la app; para cerrarla,
+cerrá esa ventana.
+
+Si preferís (o necesitás) hacerlo a mano paso a paso, seguí la guía de abajo.
+
+---
+
 ## 1. Qué necesitás antes de empezar
 
 Solo dos cosas:
