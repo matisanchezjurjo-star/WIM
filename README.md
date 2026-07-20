@@ -153,12 +153,14 @@ Guardá esa clave, la vas a necesitar en el paso siguiente.
    para qué sirven, qué los hace buenos, y si querés, una foto). Esto lo
    hacés una sola vez por producto; después la IA los usa siempre.
 
-2. **Todos los días**, entrá a "Ideas de hoy" (la pantalla de inicio). Vas a
-   ver 3 ideas de publicaciones ya escritas. Si no te convencen, apretá
-   "Generar otras ideas". Cuando una te guste:
+2. **Todos los días**, abrí la app: primero te saluda por tu nombre, y con
+   el botón "Ver las ideas de hoy" entrás a 3 ideas de publicaciones ya
+   escritas, cada una con una imagen lista para descargar. Si no te
+   convencen, apretá "Generar otras ideas". Cuando una te guste:
+   - Apretá "Descargar imagen" para guardarla en tu computadora.
    - Apretá "Copiar texto" y "Copiar hashtags".
-   - Andá a Instagram, creá la publicación, y pegá (mantené presionado y
-     elegí "Pegar").
+   - Andá a Instagram, creá la publicación, subí la imagen descargada y
+     pegá el texto (mantené presionado y elegí "Pegar").
    - Si querés guardarla para otro día, apretá "Guardar en calendario".
 
 3. **Si querés armar algo puntual** (una promoción, un producto nuevo, un
@@ -210,10 +212,13 @@ Meta/Instagram.
   El modelo se puede cambiar con la variable `ANTHROPIC_MODEL` en `.env`.
 - **Fotos de producto**: se guardan en `server/uploads/` (no se suben a
   ningún lado).
-- **Generación de imágenes con IA**: no está incluida (no era parte del
-  pedido), pero hay un punto de integración limpio en
-  `server/lib/imageGen.js` (`generateImage(visualBrief)`) por si en el
-  futuro se quiere conectar una API de generación de imágenes.
+- **Generación de imágenes**: `server/lib/imageGen.js` arma con `sharp` una
+  imagen 1080x1350 lista para publicar (la foto del producto de fondo, o un
+  fondo con los colores de WIM si no hay foto, más el logo y el título
+  superpuestos). No es una foto generada por IA (Anthropic no ofrece eso vía
+  API) — es un composición automática. Si más adelante se quiere conectar un
+  modelo de generación de imágenes de verdad, ese archivo es el punto de
+  integración.
 - **Logo**: `client/src/components/Logo.jsx` tiene una recreación en SVG del
   logo de WIM. Si tenés el archivo original (PNG/SVG), guardalo en
   `client/src/assets/logo.png` y reemplazá ese componente por un `<img>`.
