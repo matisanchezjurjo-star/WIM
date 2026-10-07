@@ -1,34 +1,51 @@
-const POINTS = [
-  { icon: '🛡️', title: 'Material resistente', body: 'Termoplástico de alta calidad, pensado para durar en uso diario.' },
-  { icon: '🔧', title: 'Fácil instalación', body: 'Diseño práctico para que cualquier instalador trabaje rápido y seguro.' },
-  { icon: '✨', title: 'Diseño cuidado', body: 'Terminaciones prolijas, aptas tanto para lo industrial como para lo decorativo.' },
+import PhotoPlaceholder from './PhotoPlaceholder.jsx';
+
+const PRINCIPLES = [
+  {
+    n: '01',
+    title: 'Resistencia',
+    body: 'Termoplásticos seleccionados para uso cotidiano.',
+  },
+  {
+    n: '02',
+    title: 'Instalación',
+    body: 'Diseños simples y prácticos para el profesional.',
+  },
+  {
+    n: '03',
+    title: 'Terminación',
+    body: 'Productos funcionales con terminaciones cuidadas.',
+  },
 ];
 
 export default function About() {
   return (
-    <section id="nosotros" className="bg-white border-y border-gray-100 scroll-mt-16">
-      <div className="max-w-6xl mx-auto px-5 py-20 grid md:grid-cols-2 gap-12 items-center">
+    <section id="nosotros" className="bg-white border-y border-concrete-dark/60 scroll-mt-20">
+      <div className="content-width px-6 lg:px-10 py-20 sm:py-28 grid lg:grid-cols-2 gap-16 items-center">
+        <PhotoPlaceholder label="Taller / producción WIM" aspect="aspect-[4/3]" />
+
         <div>
-          <h2 className="text-3xl font-extrabold text-gray-800 mb-4">Quiénes somos</h2>
-          <p className="text-gray-600 leading-relaxed">
+          <span className="label-eyebrow text-wim-blue">WIM</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight leading-tight">
+            Soluciones eléctricas pensadas para el trabajo real.
+          </h2>
+          <p className="mt-6 text-graphite leading-relaxed">
             WIM fabrica y distribuye portalámparas y receptáculos eléctricos en Argentina. Trabajamos para que
             electricistas, ferreterías, decoradores y fabricantes de iluminación tengan un producto confiable,
             resistente y con buena terminación en cada instalación.
           </p>
-          <p className="text-gray-600 leading-relaxed mt-4">
-            Elegí calidad, elegí WIM.
-          </p>
-        </div>
-        <div className="grid gap-4">
-          {POINTS.map((point) => (
-            <div key={point.title} className="flex items-start gap-4 rounded-2xl bg-gray-50 p-5">
-              <span className="text-3xl">{point.icon}</span>
-              <div>
-                <h3 className="font-bold text-gray-800">{point.title}</h3>
-                <p className="text-sm text-gray-500">{point.body}</p>
+
+          <div className="mt-10 flex flex-col">
+            {PRINCIPLES.map((item) => (
+              <div key={item.n} className="flex gap-6 border-t border-concrete-dark/70 py-5 last:border-b">
+                <span className="text-sm text-wim-orange font-semibold tabular-nums pt-0.5">{item.n}</span>
+                <div>
+                  <h3 className="label-eyebrow text-charcoal">{item.title}</h3>
+                  <p className="mt-1.5 text-graphite text-sm leading-relaxed">{item.body}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -14,23 +14,28 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-gray-200">
-      <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between gap-4">
-        <a href="#inicio" onClick={() => setOpen(false)}>
-          <Logo className="h-8" />
+    <header className="sticky top-0 z-30 bg-paper border-b border-concrete-dark/60">
+      <div className="content-width px-6 lg:px-10 h-20 flex items-center justify-between gap-6">
+        <a href="#inicio" onClick={() => setOpen(false)} className="shrink-0">
+          <Logo className="h-9" />
         </a>
 
-        <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-gray-600">
+        <nav className="hidden md:flex items-center gap-10">
           {LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-wim-blue transition-colors">
+            <a
+              key={link.href}
+              href={link.href}
+              className="label-eyebrow text-charcoal/70 hover:text-wim-blue transition-colors relative group"
+            >
               {link.label}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-wim-orange transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
         </nav>
 
         <a
           href="#contacto"
-          className="hidden md:inline-flex rounded-lg bg-wim-blue text-white text-sm font-bold px-4 py-2.5 hover:bg-wim-blue-dark transition-colors"
+          className="hidden md:inline-flex items-center border border-wim-blue text-wim-blue label-eyebrow px-5 py-2.5 hover:bg-wim-blue hover:text-white transition-colors"
         >
           Contactar
         </a>
@@ -42,20 +47,20 @@ export default function Nav() {
           aria-expanded={open}
           className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
         >
-          <span className={`block h-0.5 w-6 bg-gray-700 transition-transform ${open ? 'translate-y-2 rotate-45' : ''}`} />
-          <span className={`block h-0.5 w-6 bg-gray-700 transition-opacity ${open ? 'opacity-0' : ''}`} />
-          <span className={`block h-0.5 w-6 bg-gray-700 transition-transform ${open ? '-translate-y-2 -rotate-45' : ''}`} />
+          <span className={`block h-px w-6 bg-charcoal transition-transform ${open ? 'translate-y-2 rotate-45' : ''}`} />
+          <span className={`block h-px w-6 bg-charcoal transition-opacity ${open ? 'opacity-0' : ''}`} />
+          <span className={`block h-px w-6 bg-charcoal transition-transform ${open ? '-translate-y-2 -rotate-45' : ''}`} />
         </button>
       </div>
 
       {open && (
-        <nav className="md:hidden border-t border-gray-100 bg-white px-5 py-4 flex flex-col gap-1">
+        <nav className="md:hidden border-t border-concrete-dark/60 bg-paper px-6 py-5 flex flex-col gap-1">
           {LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="py-2.5 text-base font-semibold text-gray-700 hover:text-wim-blue"
+              className="py-3 text-base font-medium text-charcoal/80 hover:text-wim-blue"
             >
               {link.label}
             </a>

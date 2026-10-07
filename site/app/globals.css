@@ -1,10 +1,22 @@
 @import "tailwindcss";
 
 @theme {
+  /* Identidad WIM — se mantiene como ancla de marca */
   --color-wim-blue: #0b3a75;
   --color-wim-blue-dark: #082a57;
   --color-wim-orange: #e8622c;
-  --font-sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --color-wim-orange-dark: #c94f1f;
+
+  /* Paleta neutra "industrial" — el resto del sitio vive acá */
+  --color-paper: #f7f5f1;
+  --color-concrete: #e8e4dd;
+  --color-concrete-dark: #d8d3c9;
+  --color-charcoal: #1d2024;
+  --color-graphite: #5c6066;
+
+  --font-sans: var(--font-inter), -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --container-content: 1360px;
 }
 
 html {
@@ -12,6 +24,21 @@ html {
 }
 
 body {
-  background-color: #f8fafc;
-  color: #1f2937;
+  background-color: var(--color-paper);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.content-width {
+  max-width: var(--container-content);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.label-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  font-size: 0.75rem;
 }
