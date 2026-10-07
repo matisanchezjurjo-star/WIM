@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wim-blue: #0b3a75;
+  --color-wim-blue-dark: #082a57;
+  --color-wim-orange: #e8622c;
+  --font-sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #1f2937;
+}
